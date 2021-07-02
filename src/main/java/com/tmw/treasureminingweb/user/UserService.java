@@ -1,12 +1,17 @@
 package com.tmw.treasureminingweb.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -15,11 +20,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User test1(){
-        return new User();
-    }
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        final Optional<User> optionalUser = userRepository.findByEmail(email);
 
-    public User test2(){
-        return new User("gougou","chy17007@bu.edu","123","hhh", LocalDate.now(),true,50,LocalDate.now(),1L);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+        else {
+            throw new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", email));
+        }
     }
 }
