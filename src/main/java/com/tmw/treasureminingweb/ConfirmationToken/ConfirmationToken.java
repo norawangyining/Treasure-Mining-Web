@@ -1,5 +1,6 @@
-package com.tmw.treasureminingweb.user;
+package com.tmw.treasureminingweb.ConfirmationToken;
 
+import com.tmw.treasureminingweb.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
