@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * POJO representing a confirmation token corresponding to a user
+ */
 @Entity
 @Data
 @AllArgsConstructor

@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * POJO representing an user
+ */
 @Entity
 @Table
 @Data
@@ -53,6 +56,7 @@ public class User implements UserDetails {
         final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(simpleGrantedAuthority);
     }
+    // TODO: impl Expired
 
     @Override
     public String getUsername() {

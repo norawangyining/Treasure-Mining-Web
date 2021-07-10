@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.text.MessageFormat;
 import java.util.Optional;
 
+/**
+ * Business logic for User login and register
+ */
 @Service
 public class UserService implements UserDetailsService {
 
@@ -19,6 +22,12 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * get user by email
+     * @param email
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         final Optional<User> optionalUser = userRepository.findByEmail(email);

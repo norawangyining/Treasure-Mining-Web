@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository getting access of database USERS
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 

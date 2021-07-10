@@ -6,8 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Providing apis for registering and login
+ */
 @RestController
 @RequestMapping(path = "user")
 public class UserController {
@@ -21,12 +25,14 @@ public class UserController {
 
     @GetMapping(path = "register")
     public List<User> register(){
-        return Arrays.asList(userService.test1());
+//        TODO
+        return new LinkedList<>();
     }
 
     @GetMapping(path = "login")
     public List<User> login(){
-        return Arrays.asList(userService.test2());
+//         TODO
+        return new LinkedList<>();
     }
 
 }

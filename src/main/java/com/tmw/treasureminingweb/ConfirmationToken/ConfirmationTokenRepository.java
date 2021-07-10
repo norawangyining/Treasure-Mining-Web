@@ -4,7 +4,9 @@ import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-//storing tokens that were sent by server
+/**
+ * Repository getting access of database CONFIRMATION_TOKEN
+ */
 @Repository
 public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, Long> {
 
