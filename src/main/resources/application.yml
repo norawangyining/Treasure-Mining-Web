@@ -8,6 +8,21 @@
 #spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 #spring.jpa.properties.hibernate.format_sql=true
 
+app:
+    datasource:
+      users:
+        url: jdbc:postgresql://localhost:5432/users
+        username:
+        password:
+        configuration:
+          maximum-pool-size: 30
+
+      confirmation-token:
+        url: jdbc:postgresql://localhost:5432/confirmation_token
+        username:
+        password:
+        configuration:
+          maximum-pool-size: 30
 spring:
   jpa:
     show-sql: true
@@ -17,15 +32,8 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: create-drop
+  security:
+    user:
+      password: gou
+      name: mao
 
-users:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/users
-    username:
-    password:
-
-confirmation-token:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/confirmation-token
-    username:
-    password:

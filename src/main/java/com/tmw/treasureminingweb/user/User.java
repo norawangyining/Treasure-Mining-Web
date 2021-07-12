@@ -17,10 +17,9 @@ import java.util.Collections;
  * POJO representing an user
  */
 @Entity
-@Table
+@Table(name = "users")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class User implements UserDetails {
     @Id
     @SequenceGenerator(
@@ -50,6 +49,10 @@ public class User implements UserDetails {
 
     @Builder.Default
     private Boolean enabled = false;
+
+    public User() {
+
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

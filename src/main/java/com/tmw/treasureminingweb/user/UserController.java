@@ -26,6 +26,7 @@ public class UserController {
     @GetMapping(path = "register")
     public List<User> register(){
 //        TODO
+
         return new LinkedList<>();
     }
 
@@ -35,4 +36,9 @@ public class UserController {
         return new LinkedList<>();
     }
 
+    @GetMapping(path = "test")
+    public List<User> test(){
+//         TODO
+        return userService.test();
+    }
 }
