@@ -2,6 +2,7 @@ package com.tmw.treasureminingweb.user;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -86,4 +87,16 @@ public class UserConfig {
     public HikariDataSource userDataSource(DataSourceProperties userDataSourceProperties) {
         return userDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
+    @Bean
+    CommandLineRunner commandLineRunner( UserRepository userRepository){
+        return args -> {
+            User user = new User();
+            user.setEmail("mao");
+            user.setPassword("gou");
+            user.setUserRole(UserRole.ADMIN);
+            user.setEnabled(true);
+            user.setLocked(false);
+            userRepository.save(user);
+        };
+    };
 }
