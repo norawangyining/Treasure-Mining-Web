@@ -2,8 +2,7 @@ package com.tmw.treasureminingweb.ConfirmationToken;
 
 import com.tmw.treasureminingweb.user.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,7 +12,10 @@ import java.util.UUID;
  * POJO representing a confirmation token corresponding to a user
  */
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "confirmation_token")
@@ -30,7 +32,7 @@ public class ConfirmationToken {
     @JoinColumn(nullable = false, name = "id")
     private User user;
 
-    ConfirmationToken(User user) {
+    public ConfirmationToken(User user) {
         this.user = user;
         this.createdDate = LocalDate.now();
         this.confirmationToken = UUID.randomUUID().toString();

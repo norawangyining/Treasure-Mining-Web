@@ -1,5 +1,8 @@
 package com.tmw.treasureminingweb.user;
 
+import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationToken;
+import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenRepository;
+import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenService;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -88,7 +91,7 @@ public class UserConfig {
         return userDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
     @Bean
-    CommandLineRunner commandLineRunner( UserRepository userRepository){
+    CommandLineRunner commandLineRunner(UserRepository userRepository, ConfirmationTokenService confirmationTokenService){
         return args -> {
             User user = new User();
             user.setEmail("mao");
@@ -97,6 +100,7 @@ public class UserConfig {
             user.setEnabled(true);
             user.setLocked(false);
             userRepository.save(user);
+            confirmationTokenService.saveConfirmationTokenByUser(user);
         };
     };
 }

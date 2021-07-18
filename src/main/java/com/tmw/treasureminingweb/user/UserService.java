@@ -1,9 +1,11 @@
 package com.tmw.treasureminingweb.user;
 
+import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -19,9 +21,14 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    private final ConfirmationTokenService confirmationTokenService;
+
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(16);
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ConfirmationTokenService confirmationTokenService) {
         this.userRepository = userRepository;
+        this.confirmationTokenService = confirmationTokenService;
     }
 
     /**
@@ -42,6 +49,27 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    /**
+     * sign up a user
+     * 1. encrypt the password
+     * 2. set a new confirmation token and save it in the db
+     * @param user
+     */
+    public void signUp(User user){
+        encryptAndSavePassword(user);
+        confirmationTokenService.saveConfirmationTokenByUser(user);
+    }
+
+    /**
+     * encrypt password based on the passwordEncoder and save
+     * @param user
+     */
+    private void encryptAndSavePassword(User user){
+        final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+        userRepository.save(user);
+    }
+
     public List<User> test() {
         User user = new User();
         user.setEmail("530106857@qq,com");
@@ -49,4 +77,5 @@ public class UserService implements UserDetailsService {
         final Optional<User> optionalUser = userRepository.findByEmail("530106857@qq,com");
         return optionalUser.map(Arrays::asList).orElse(null);
     }
+
 }
