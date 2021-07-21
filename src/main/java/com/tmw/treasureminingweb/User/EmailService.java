@@ -1,4 +1,4 @@
-package com.tmw.treasureminingweb.user;
+package com.tmw.treasureminingweb.User;
 
 import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;

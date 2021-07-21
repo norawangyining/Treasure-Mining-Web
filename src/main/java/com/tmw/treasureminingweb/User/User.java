@@ -1,4 +1,4 @@
-package com.tmw.treasureminingweb.user;
+package com.tmw.treasureminingweb.User;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

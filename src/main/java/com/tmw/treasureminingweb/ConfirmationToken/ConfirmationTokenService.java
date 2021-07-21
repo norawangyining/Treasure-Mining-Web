@@ -1,7 +1,7 @@
 package com.tmw.treasureminingweb.ConfirmationToken;
 
-import com.tmw.treasureminingweb.user.User;
-import com.tmw.treasureminingweb.user.UserRepository;
+import com.tmw.treasureminingweb.User.User;
+import com.tmw.treasureminingweb.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

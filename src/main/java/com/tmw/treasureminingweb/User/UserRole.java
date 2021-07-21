@@ -1,4 +1,4 @@
-package com.tmw.treasureminingweb.user;
+package com.tmw.treasureminingweb.User;
 
 /**
  * representing roles of users, used in User.java

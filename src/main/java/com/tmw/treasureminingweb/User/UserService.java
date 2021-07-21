@@ -1,4 +1,4 @@
-package com.tmw.treasureminingweb.user;
+package com.tmw.treasureminingweb.User;
 
 import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
