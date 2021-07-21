@@ -2,6 +2,7 @@ package com.tmw.treasureminingweb.user;
 
 import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,15 +21,16 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
     private final ConfirmationTokenService confirmationTokenService;
+    private final EmailService emailService;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(16);
 
     @Autowired
-    public UserService(UserRepository userRepository, ConfirmationTokenService confirmationTokenService) {
+    public UserService(UserRepository userRepository, ConfirmationTokenService confirmationTokenService, EmailService emailService) {
         this.userRepository = userRepository;
         this.confirmationTokenService = confirmationTokenService;
+        this.emailService = emailService;
     }
 
     /**
@@ -61,6 +63,22 @@ public class UserService implements UserDetailsService {
     }
 
     /**
+     * send confirmation email to user
+     * @param userEmail
+     * @param token
+     */
+    public void sendConfirmationMail(String userEmail, String token) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(userEmail);
+        mailMessage.setSubject("Mail Confirmation Link!");
+        mailMessage.setFrom("<MAIL>");
+        mailMessage.setText(
+                "Thank you for registering. Please click on the below link to activate your account." + "http://localhost:8080/sign-up/confirm?token="
+                        + token);
+
+        emailService.sendEmail(mailMessage);
+    }
+    /**
      * encrypt password based on the passwordEncoder and save
      * @param user
      */
@@ -69,6 +87,7 @@ public class UserService implements UserDetailsService {
         user.setPassword(encryptedPassword);
         userRepository.save(user);
     }
+
 
     public List<User> test() {
         User user = new User();
