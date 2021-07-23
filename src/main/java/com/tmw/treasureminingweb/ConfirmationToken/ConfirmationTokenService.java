@@ -5,8 +5,10 @@ import com.tmw.treasureminingweb.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
- * Service of confirmationToken
+ * Service of token
  */
 @Service
 public class ConfirmationTokenService {
@@ -49,5 +51,14 @@ public class ConfirmationTokenService {
         user.setEnabled(true);
         userRepository.save(user);
         deleteConfirmationToken(confirmationToken.getId());
+    }
+
+    public ConfirmationToken getConfirmationToken(String token){
+        Optional<ConfirmationToken> confirmationToken = confirmationTokenRepository.getConfirmationTokenByToken(token);
+
+        if(confirmationToken.isPresent()){
+            return confirmationToken.get();
+        }
+        return null;
     }
 }
