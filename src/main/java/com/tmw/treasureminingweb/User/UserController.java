@@ -45,7 +45,7 @@ public class UserController {
 
         confirmationTokenService.confirmUser(confirmationToken);
 
-        return "/login";
+        return "login";
     }
 
     @GetMapping(path = "test")

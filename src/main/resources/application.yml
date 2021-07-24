@@ -50,4 +50,10 @@ spring:
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
-
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    prefix: classpath:/static/
