@@ -3,6 +3,7 @@ package com.tmw.treasureminingweb.User;
 import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationToken;
 import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class UserController {
     }
 
     @GetMapping(path = "login")
-    public String login(){
+    public String login(@RequestParam(name = "name", required = false, defaultValue = "gougou") String name, Model model){
+        model.addAttribute("name", name);
         return "login";
     }
 

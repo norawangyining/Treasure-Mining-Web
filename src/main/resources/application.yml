@@ -52,8 +52,11 @@ spring:
           writetimeout: 5000
   thymeleaf:
     cache: false
-    mode: HTML5
+    mode: HTML
     encoding: UTF-8
     servlet:
       content-type: text/html
-    prefix: classpath:/static/
+    prefix: classpath:/templatasdsdes/
+  web:
+    resources:
+      static-locations: classpath:/templates/
