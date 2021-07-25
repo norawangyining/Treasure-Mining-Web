@@ -1,9 +1,6 @@
-package com.tmw.treasureminingweb.user;
+package com.tmw.treasureminingweb.User;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +10,16 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * POJO representing an user
+ */
 @Entity
-@Table
-@Data
+@Table(name = "Users")
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
 @AllArgsConstructor
-@NoArgsConstructor
 public class User implements UserDetails {
     @Id
     @SequenceGenerator(
@@ -48,11 +50,16 @@ public class User implements UserDetails {
     @Builder.Default
     private Boolean enabled = false;
 
+    public User() {
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(simpleGrantedAuthority);
     }
+    // TODO: impl Expired
 
     @Override
     public String getUsername() {
