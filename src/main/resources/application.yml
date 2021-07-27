@@ -32,11 +32,13 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: create-drop
+    open-in-view: false
   security:
     user:
       password:
       name:
   mail:
+#    TODO set proper config https://support.google.com/mail/answer/7126229?p=BadCredentials&visit_id=637630008844627961-3230683258&rd=2#cantsignin&zippy=%2Ci-cant-sign-in-to-my-email-client
     host: smtp.gmail.com
     port: 587
     username: charles.chenyu1999
@@ -56,7 +58,7 @@ spring:
     encoding: UTF-8
     servlet:
       content-type: text/html
-    prefix: classpath:/templatasdsdes/
+    prefix: classpath:/templates/
   web:
     resources:
       static-locations: classpath:/templates/

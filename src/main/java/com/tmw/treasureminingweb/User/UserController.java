@@ -5,6 +5,7 @@ import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -25,34 +26,30 @@ public class UserController {
     }
 
     @GetMapping(path = "register")
-    public String register(){
-        return "register";
+    public ModelAndView register(){
+        return new ModelAndView("register");
     }
 
     @GetMapping(path = "login")
-    public String login(@RequestParam(name = "name", required = false, defaultValue = "gougou") String name, Model model){
-        model.addAttribute("name", name);
-        return "login";
+    public ModelAndView login(@RequestParam(name = "name", required = false, defaultValue = "gougou") String name, Model model){
+        ModelAndView m = new ModelAndView("login");
+        m.addObject("name","gougou");
+        return m;
     }
 
     @PostMapping(path = "register")
-    public String register(User user){
+    public ModelAndView register(User user){
         userService.signUp(user);
-        return "redirect:/user/login";
+        return new ModelAndView("redirect:/user/login") ;
     }
 
     @GetMapping(path = "confirm")
-    public String confirmMail(@RequestParam("token") String token){
+    public ModelAndView confirmMail(@RequestParam("token") String token){
         ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
 
         confirmationTokenService.confirmUser(confirmationToken);
 
-        return "login";
+        return new ModelAndView("login");
     }
 
-    @GetMapping(path = "test")
-    public List<User> test(){
-//         TODO
-        return userService.test();
-    }
 }

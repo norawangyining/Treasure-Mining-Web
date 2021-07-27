@@ -5,18 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<form role="form" th:action="@{/user/register}" th:method="post" th:object="${user}">
+<form role="form" th:action="@{/user/register}" th:method="post">
     <lable>Name</lable>
-    <input type="text" id="name" name="name" th:field="*{name}">
+    <input type="text" id="name" name="name">
 
     <lable>Surname</lable>
-    <input type="text" id="surname" name="surname" th:field="*{surname}">
+    <input type="text" id="surname" name="surname">
 
     <lable>Email</lable>
-    <input type="text" id="email" name="email" th:field="*{email}">
+    <input type="text" id="email" name="email">
 
     <lable>Password</lable>
-    <input type="password" id="password" name="password" th:field="*{password}">
+    <input type="password" id="password" name="password">
 
     <input type="submit">
 </form>

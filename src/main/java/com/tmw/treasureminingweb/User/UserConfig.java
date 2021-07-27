@@ -77,17 +77,17 @@ public class UserConfig {
         return userDataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository, ConfirmationTokenService confirmationTokenService){
-        return args -> {
-            User user = new User();
-            user.setEmail("mao");
-            user.setPassword("gou");
-            user.setUserRole(UserRole.ADMIN);
-            user.setEnabled(true);
-            user.setLocked(false);
-            userRepository.save(user);
-            confirmationTokenService.saveConfirmationTokenByUser(user);
-        };
-    };
+//    @Bean
+//    CommandLineRunner commandLineRunner(UserRepository userRepository, ConfirmationTokenService confirmationTokenService){
+//        return args -> {
+//            User user = new User();
+//            user.setEmail("mao");
+//            user.setPassword("gou");
+//            user.setUserRole(UserRole.ADMIN);
+//            user.setEnabled(true);
+//            user.setLocked(false);
+//            userRepository.save(user);
+//            confirmationTokenService.saveConfirmationTokenByUser(user);
+//        };
+//    };
 }

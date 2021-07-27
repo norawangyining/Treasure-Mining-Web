@@ -1,5 +1,6 @@
 package com.tmw.treasureminingweb.User;
 
+import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationToken;
 import com.tmw.treasureminingweb.ConfirmationToken.ConfirmationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -59,7 +60,8 @@ public class UserService implements UserDetailsService {
      */
     public void signUp(User user){
         encryptAndSavePassword(user);
-        confirmationTokenService.saveConfirmationTokenByUser(user);
+        ConfirmationToken confirmationToken = confirmationTokenService.saveConfirmationTokenByUser(user);
+        sendConfirmationMail(user.getUsername(), confirmationToken.getToken());
     }
 
     /**
@@ -88,13 +90,5 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-
-    public List<User> test() {
-        User user = new User();
-        user.setEmail("530106857@qq,com");
-        userRepository.save(new User());
-        final Optional<User> optionalUser = userRepository.findByEmail("530106857@qq,com");
-        return optionalUser.map(Arrays::asList).orElse(null);
-    }
 
 }

@@ -21,9 +21,10 @@ public class ConfirmationTokenService {
         this.userRepository = userRepository;
     }
 
-    public void saveConfirmationTokenByUser(User user){
+    public ConfirmationToken saveConfirmationTokenByUser(User user){
         ConfirmationToken confirmationToken = new ConfirmationToken(user);
         confirmationTokenRepository.save(confirmationToken);
+        return confirmationToken;
     }
 
     /**
