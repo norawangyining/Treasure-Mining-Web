@@ -59,9 +59,35 @@ public class UserService implements UserDetailsService {
      * @param user
      */
     public void signUp(User user){
+//        check validation of user's username, email, password
+//        TODO: now username is email we only check email here
+        if(!isEmailValid(user)) {
+//            TODO:  throw exception
+            return;
+        }
+        if(!isPasswordValid(user)){
+            return;
+        }
+
         encryptAndSavePassword(user);
         ConfirmationToken confirmationToken = confirmationTokenService.saveConfirmationTokenByUser(user);
         sendConfirmationMail(user.getUsername(), confirmationToken.getToken());
+    }
+
+    /**
+     * reset PassWord of a given user
+     * @param user
+     * @param newPassword
+     */
+    public void resetPassword(User user, String newPassword) {
+        user.setPassword(newPassword);
+        if(bCryptPasswordEncoder.encode(newPassword).equals(user.getPassword())){
+            return;
+        }
+        if(!isPasswordValid(user)) {
+            return;
+        }
+        encryptAndSavePassword(user);
     }
 
     /**
@@ -84,11 +110,27 @@ public class UserService implements UserDetailsService {
      * encrypt password based on the passwordEncoder and save
      * @param user
      */
-    private void encryptAndSavePassword(User user){
+    private void encryptAndSavePassword(User user) {
         final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         userRepository.save(user);
     }
 
+    private boolean isEmailValid(User user) {
+        String email = user.getEmail();
+//      check if it is school email
+        if(!email.contains("@bu.edu")){
+            return false;
+        }
+//      if there an exsit account with same email
+        if(userRepository.findByEmail(email).isPresent()) {
+            return false;
+        }
+        return true;
+    }
 
+    private boolean isPasswordValid(User user){
+//        TODO
+        return true;
+    }
 }

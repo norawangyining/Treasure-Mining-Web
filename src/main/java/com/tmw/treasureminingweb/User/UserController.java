@@ -7,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 /**
  * Providing apis for registering and login
  */
@@ -44,11 +42,18 @@ public class UserController {
     }
 
     @GetMapping(path = "confirm")
-    public ModelAndView confirmMail(@RequestParam("token") String token){
+    public ModelAndView confirmMail(@RequestParam("token") String token) {
         ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
 
         confirmationTokenService.confirmUser(confirmationToken);
 
+        return new ModelAndView("login");
+    }
+
+    public ModelAndView resetPassWord(@RequestParam("token") String token, @RequestParam("password") String newPassword) {
+        ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
+        User user = confirmationToken.getUser();
+        userService.resetPassword(user,newPassword);
         return new ModelAndView("login");
     }
 
